@@ -20,16 +20,14 @@ $(function() {
     event.stopPropagation();
     event.preventDefault();
 
-    $(this).toggleClass('card__follow-btn--following');
-
-    // cambiar conjugación
-    var text = $(this).text();
-
-    if (text == 'Seguir') {
-      $(this).text('Siguiendo');
-    } else {
+    // Añadir/quitar clase .card__follow-btn--following y cambiar conjugación del texto
+    if ($(this).hasClass('card__follow-btn--following')) {
+      $(this).removeClass('card__follow-btn--following');
       $(this).text('Seguir');
-    };
+    } else {
+      $(this).addClass('card__follow-btn--following');
+      $(this).text('Siguiendo');
+    }
   });
 
   // 05: Agegar imagen seleccionada en el select #image
