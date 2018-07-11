@@ -97,7 +97,7 @@ $(function() {
             </li>\
           </ul>\
           <div class="card__follow">\
-            <button class="card__follow-btn card__follow-btn--following">Seguir</button>\
+            <button class="card__follow-btn">Seguir</button>\
           </div>\
         </div>\
       </div>\
