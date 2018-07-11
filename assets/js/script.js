@@ -3,19 +3,19 @@ $(function() {
 
 
   // 02: Añadir/eliminar la clase .card--open al hacer click sobre .card
-  $(".card").click(function(event) {
+  $(".cards").on('click', '.card', function(event) {
     $(this).toggleClass('card--open');
   });
 
   // 03: Añadir/eliminar la clase .card__like--red al hacer click sobre .card__like
-  $(".card__like").click(function(event) {
+  $(".cards").on('click', '.card__like', function(event) {
     event.stopPropagation();
     event.preventDefault();
     $(this).toggleClass('card__like--red');
   });
 
   // 04: Añadir/eliminar la clase .card__follow-btn--following al hacer click sobre .card__follow-btn
-  $(".card__follow-btn").click(function(event) {
+  $(".cards").on('click', '.card__follow-btn', function(event) {
     event.stopPropagation();
     event.preventDefault();
     $(this).toggleClass('card__follow-btn--following');
@@ -24,30 +24,77 @@ $(function() {
   // 05: Agegar imagen seleccionada en el select #image
   $("select#image").change(function(event) {
     // ANOTHER WAY: var value = $(this).find("option:selected").attr('value');
-    var value = $(event.target).val();
-    var source = `assets/images/squared/${value}`;
+    var value = $(event.target).val(),
+        source = `assets/images/squared/${value}`;
 
     $(this).parent().siblings('.create__image').children().attr('src', source);
   });
 
   // 06: Agegar imagen seleccionada en el select #author
   $("select#author").change(function(event) {
-    var value = $(event.target).val();
-    var source = `assets/images/profiles/${value}`;
+    var value = $(event.target).val(),
+        source = `assets/images/profiles/${value}`;
 
     $(this).parent().siblings('.create__profile').children().attr('src', source);
   });
 
-  // 07
-  // Capturar el evento del form y prevenir el default
+  // 07: Capturar el evento del form, prevenir el default y obtener la info de éste
   $("form").submit(function(event) {
     event.preventDefault();
 
     var data = $(this).serializeArray();
-    var name = data[0].value,
-        followers = data[3].value,
-        likes = data[4].value,
-        following = data[5].value;
+
+    name = data[0].value;
+    imageSource = data[1].value;
+    // image = $("select#image").children(':selected').text();
+    authorSource = data[2].value;
+    author = $("select#author").children(':selected').text();
+    followers = data[3].value;
+    likes = data[4].value;
+    following = data[5].value;
+
+    console.log(name, image, imageSource, author, authorSource, followers, likes, following);
+
+    // 08: Agregar una tarjeta dentro de .cards
+    $(".cards").append(`<li class="card card--open">\
+      <div class="card__highlight">\
+        <img class="card__img" src="./assets/images/squared/${imageSource}" alt="">\
+      </div>\
+      <div class="card__content">\
+        <div class="card__profile-container">\
+          <img class="card__profile" src="./assets/images/profiles/${authorSource}" alt="">\
+        </div>\
+        <div class="card__title">\
+          <h2>${name}</h2>\
+        </div>\
+        <div class="card__author">\
+          <h3 class="card__author-name">${author}</h3>\
+        </div>\
+        <a class="card__like" href="#">\
+          <i class="fas fa-heart"></i>\
+        </a>\
+        <div class="card__hidden">\
+          <ul class="social">\
+            <li class="social__element">\
+              <div class="social__number">${followers}</div>\
+              <div class="social__text">Followers</div>\
+            </li>\
+            <li class="social__element">\
+              <div class="social__number">${likes}</div>\
+              <div class="social__text">Likes</div>\
+            </li>\
+            <li class="social__element">\
+              <div class="social__number">${following}</div>\
+              <div class="social__text">Following</div>\
+            </li>\
+          </ul>\
+          <div class="card__follow">\
+            <button class="card__follow-btn card__follow-btn--following">Seguir</button>\
+          </div>\
+        </div>\
+      </div>\
+    </li>`);
+
   });
 
 });
