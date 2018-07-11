@@ -38,4 +38,16 @@ $(function() {
     $(this).parent().siblings('.create__profile').children().attr('src', source);
   });
 
+  // 07
+  // Capturar el evento del form y prevenir el default
+  $("form").submit(function(event) {
+    event.preventDefault();
+
+    var data = $(this).serializeArray();
+    var name = data[0].value,
+        followers = data[3].value,
+        likes = data[4].value,
+        following = data[5].value;
+  });
+
 });
