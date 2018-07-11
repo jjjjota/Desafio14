@@ -11,6 +11,7 @@ $(function() {
   $(".cards").on('click', '.card__like', function(event) {
     event.stopPropagation();
     event.preventDefault();
+
     $(this).toggleClass('card__like--red');
   });
 
@@ -18,12 +19,12 @@ $(function() {
   $(".cards").on('click', '.card__follow-btn', function(event) {
     event.stopPropagation();
     event.preventDefault();
+
     $(this).toggleClass('card__follow-btn--following');
   });
 
   // 05: Agegar imagen seleccionada en el select #image
   $("select#image").change(function(event) {
-    // ANOTHER WAY: var value = $(this).find("option:selected").attr('value');
     var value = $(event.target).val(),
         source = `assets/images/squared/${value}`;
 
@@ -38,10 +39,12 @@ $(function() {
     $(this).parent().siblings('.create__profile').children().attr('src', source);
   });
 
-  // 07: Capturar el evento del form, prevenir el default y obtener la info de éste
+  // 07: Capturar el evento del form y obtener la info de éste
   $("form").submit(function(event) {
+    // prevenir el comportamiento por defecto
     event.preventDefault();
 
+    // obtener la información entregada por el usuario
     var data = $(this).serializeArray();
 
     name = data[0].value;
@@ -52,8 +55,6 @@ $(function() {
     followers = data[3].value;
     likes = data[4].value;
     following = data[5].value;
-
-    console.log(name, image, imageSource, author, authorSource, followers, likes, following);
 
     // 08: Agregar una tarjeta dentro de .cards
     $(".cards").append(`<li class="card card--open">\
@@ -94,6 +95,16 @@ $(function() {
         </div>\
       </div>\
     </li>`);
+
+    // 09: Limpiar form
+    // cambiar imágenes
+    var divImages = $(this).children('.create__display_images');
+
+    divImages.children('.create__image').children().attr('src', 'assets/images/squared/uk.png');
+    divImages.children('.create__profile').children().attr('src', 'assets/images/profiles/uk.png');
+
+    // poner valores por defecto de inputs
+    $(this)[0].reset();
 
   });
 
