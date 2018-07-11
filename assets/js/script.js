@@ -21,6 +21,15 @@ $(function() {
     event.preventDefault();
 
     $(this).toggleClass('card__follow-btn--following');
+
+    // cambiar conjugación
+    var text = $(this).text();
+
+    if (text == 'Seguir') {
+      $(this).text('Siguiendo');
+    } else {
+      $(this).text('Seguir');
+    };
   });
 
   // 05: Agegar imagen seleccionada en el select #image
@@ -105,7 +114,6 @@ $(function() {
 
     // poner valores por defecto de inputs
     $(this)[0].reset();
-
   });
 
 });
