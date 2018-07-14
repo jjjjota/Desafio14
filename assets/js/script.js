@@ -42,6 +42,7 @@ $(function() {
   $("select#author").change(function(event) {
     var value = $(event.target).val(),
         source = `assets/images/profiles/${value}`;
+    alert(value);
 
     $(this).parent().siblings('.create__profile').children().attr('src', source);
   });
