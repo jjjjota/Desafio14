@@ -1,14 +1,17 @@
 // 01: inicializar con evento ready
 $(function() {
-
+  var daddy = $(".cards"),
+      form = $("form"),
+      selectImage = $("select#image"),
+      selectAuthor = $("select#author");
 
   // 02: Añadir/eliminar la clase .card--open al hacer click sobre .card
-  $(".cards").on('click', '.card', function(event) {
+  daddy.on('click', '.card', function(event) {
     $(this).toggleClass('card--open');
   });
 
   // 03: Añadir/eliminar la clase .card__like--red al hacer click sobre .card__like
-  $(".cards").on('click', '.card__like', function(event) {
+  daddy.on('click', '.card__like', function(event) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -16,7 +19,7 @@ $(function() {
   });
 
   // 04: Añadir/eliminar la clase .card__follow-btn--following al hacer click sobre .card__follow-btn
-  $(".cards").on('click', '.card__follow-btn', function(event) {
+  daddy.on('click', '.card__follow-btn', function(event) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -31,7 +34,7 @@ $(function() {
   });
 
   // 05: Agegar imagen seleccionada en el select #image
-  $("select#image").change(function(event) {
+  selectImage.change(function(event) {
     var value = $(event.target).val(),
         source = `assets/images/squared/${value}`;
 
@@ -39,16 +42,15 @@ $(function() {
   });
 
   // 06: Agegar imagen seleccionada en el select #author
-  $("select#author").change(function(event) {
+  selectAuthor.change(function(event) {
     var value = $(event.target).val(),
         source = `assets/images/profiles/${value}`;
-    alert(value);
 
     $(this).parent().siblings('.create__profile').children().attr('src', source);
   });
 
   // 07: Capturar el evento del form y obtener la info de éste
-  $("form").submit(function(event) {
+  form.submit(function(event) {
     // prevenir el comportamiento por defecto
     event.preventDefault();
 
@@ -65,7 +67,7 @@ $(function() {
     following = data[5].value;
 
     // 08: Agregar una tarjeta dentro de .cards
-    $(".cards").append(`<li class="card card--open">\
+    daddy.append(`<li class="card card--open">\
       <div class="card__highlight">\
         <img class="card__img" src="./assets/images/squared/${imageSource}" alt="">\
       </div>\
